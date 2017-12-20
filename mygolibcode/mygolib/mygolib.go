@@ -40,7 +40,7 @@ type Updater struct {
 	javaCall JavaCallbackInterface
 }
 
-var iterationProgress *Updater
+var updater *Updater
 
 func NewUpdater(c JavaCallbackInterface) *Updater {
 	return &Updater{javaCall: c}
@@ -51,7 +51,7 @@ func (u Updater) Update(x string) {
 }
 
 func CallbackToJava() {
-	iterationProgress.Update("String past to Java method from go")
+	updater.Update("\"I'm coming from GO\"")
 }
 
 func Callgo(s string) (string, error) {
@@ -61,7 +61,7 @@ func Callgo(s string) (string, error) {
 
 func Callgocalljava(f *Updater) (string, error) {
 	if f != nil {
-		iterationProgress = f //f = NewUpdater(y)
+		updater = f //f = NewUpdater(y)
 	}
 	CallbackToJava()
 	str := "String returned from calling a go function from java"
