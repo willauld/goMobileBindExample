@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+
+import mygolib.JavaCallbackInterface;
 import mygolib.Mygolib;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
         but.setText(resp);
     }
     //*
-    public class J extends Mygolib.javaCallbackInterface {
-        public void CJUpdate(String x) {
+    public class J implements JavaCallbackInterface {
+        public void cjUpdate(String x) {
             // code you want called from Go.
-            backtoJava.setText("backtoJava "+x);
+            String str = "backtoJava "+x;
+            backtoJava.setText(str);
         }
     }
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         backtoJava = (Button) v;
         String str = "Working2...";
         backtoJava.setText(str);
-        String resp = Mygolib.callgocalljava(new J());
+        String resp = Mygolib.callgocalljava(Mygolib.newUpdater(new J()));
         //backtoJava.setText(resp);
     }
     //*/
